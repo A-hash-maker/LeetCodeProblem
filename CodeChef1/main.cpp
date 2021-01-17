@@ -10,43 +10,51 @@
 
 using namespace std;
 
-int findKthPositive(vector<int>& arr, int k) {
-    //int count = 0;
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+
+void push(ListNode** root_ref, int data) {
+    ListNode* new_node = new ListNode;
+    new_node->val = data;
+    new_node->next = (*root_ref);
+    (*root_ref) = new_node;
+}
+
+int getDecimalValue(ListNode* head) {
+    int count = 0;
     
-    int var = 1;
+    ListNode* headCount = head;
     
-    for(long int i=0; i<arr.size();) {
-        if(arr[i] == var) {
-            i++;
-        }else {
-            k--;
+    while(headCount != NULL){
+        count++;
+        headCount = headCount->next;
+    }
+    count = count - 1;
+    long int sum = 0;
+    
+    while(head != NULL) {
+        if(head->val == 1) {
+            sum = sum + pow(2, count);
         }
-        if(k == 0) {
-            break;
-        }
-        var++;
+        head = head->next;
+        count--;
     }
     
-    if(k != 1){
-        while(k > 1){
-            var++;
-            k--;
-        }
-        
-    }
-    
-    
-    
-    return var;
+    return int(sum);
 }
 
 int main()
 {
-    vector<int> arr = {2, 3, 4, 7, 11};
-    int k = 5;
+    ListNode* head = NULL;
+    push(&head, 1);
     
-    cout << findKthPositive(arr, k) << endl;
-    
+    cout << getDecimalValue(head) << endl;
     
     return 0;
 }
