@@ -10,25 +10,43 @@
 
 using namespace std;
 
-int findKthLargest(vector<int>& nums, int k) {
-    make_heap(nums.begin(), nums.end());
+int findKthPositive(vector<int>& arr, int k) {
+    //int count = 0;
     
     int var = 1;
     
-    while (var != k) {
-        pop_heap(nums.begin(), nums.end());
-        nums.pop_back();
-        
+    for(long int i=0; i<arr.size();) {
+        if(arr[i] == var) {
+            i++;
+        }else {
+            k--;
+        }
+        if(k == 0) {
+            break;
+        }
         var++;
     }
-    return nums.front();
+    
+    if(k != 1){
+        while(k > 1){
+            var++;
+            k--;
+        }
+        
+    }
+    
+    
+    
+    return var;
 }
 
 int main()
 {
+    vector<int> arr = {2, 3, 4, 7, 11};
+    int k = 5;
     
-    vector<int> nums = {3, 2, 1, 5, 6, 4};
-    int k = 2;
-    cout << findKthLargest(nums, k) << endl;
+    cout << findKthPositive(arr, k) << endl;
+    
+    
     return 0;
 }
