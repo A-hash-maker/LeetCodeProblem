@@ -18,20 +18,18 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode* reverseList(ListNode* head) {
-    ListNode* prev = NULL;
-    ListNode* current = head;
-    ListNode* next = NULL;
+void deleteNode(ListNode* node) {
+    int currentValue = node->val;
+    node->val = node->next->val;
+    node->next->val = currentValue;
     
-    while(current != NULL) {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
+    struct ListNode* nextNode = node->next->next;
     
-    head = prev;
-    return head;
+    free(node->next);
+    
+    node->next = nextNode;
+    
+    
 }
 
 void push(ListNode** head_ref, int data) {
@@ -61,7 +59,10 @@ int main()
     cout << "Original LinkList is " << endl;
     printList(head);
     
-    reverseList(head);
+    deleteNode(head->next->next);
+    
+    cout << "Linklist after deletion of the Node is " << endl;
+    printList(head);
     
     return 0;
 }
