@@ -7,62 +7,46 @@
 #include <unordered_set>
 #include <map>
 #include <unordered_map>
+#include <list>
 
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-
-void deleteNode(ListNode* node) {
-    int currentValue = node->val;
-    node->val = node->next->val;
-    node->next->val = currentValue;
+vector<int> finalPrices(vector<int>& prices) {
+    vector<int> returnVector;
     
-    struct ListNode* nextNode = node->next->next;
-    
-    free(node->next);
-    
-    node->next = nextNode;
-    
-    
-}
-
-void push(ListNode** head_ref, int data) {
-    ListNode* new_node = new ListNode;
-    new_node->val = data;
-    new_node->next = *(head_ref);
-    *(head_ref) = new_node;
-}
-
-void printList(ListNode* head) {
-    while(head != NULL) {
-        cout << head->val << " ";
-        head = head->next;
+    for(long int i=0; i<prices.size(); i++) {
+        int found = 0;
+        
+        while(found != 1) {
+            for(long int j=i+1; j<prices.size(); j++) {
+                if(prices[i] >= prices[j]) {
+                    returnVector.push_back(prices[i] - prices[j]);
+                    found = 1;
+                    break;
+                }
+            }
+            if(found == 0) {
+                returnVector.push_back(prices[i]);
+            }
+            break;
+        }
     }
-    cout << endl;
+    
+//    for(long int i=0; i<returnVector.size(); i++) {
+//        cout << returnVector[i] << " ";
+//    }
+//    cout << endl;
+    
+    
+    return returnVector;
 }
 
 int main()
 {
-    ListNode* head = NULL;
-    push(&head, 5);
-    push(&head, 4);
-    push(&head, 3);
-    push(&head, 2);
-    push(&head, 1);
+    vector<int> prices = {10, 1, 1, 6};
     
-    cout << "Original LinkList is " << endl;
-    printList(head);
+    finalPrices(prices);
     
-    deleteNode(head->next->next);
-    
-    cout << "Linklist after deletion of the Node is " << endl;
-    printList(head);
     
     return 0;
 }
