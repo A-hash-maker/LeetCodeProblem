@@ -11,42 +11,25 @@
 
 using namespace std;
 
-vector<int> finalPrices(vector<int>& prices) {
-    vector<int> returnVector;
+int largestAltitude(vector<int>& gain) {
+    int value = 0;
+    int maxValue = 0;
     
-    for(long int i=0; i<prices.size(); i++) {
-        int found = 0;
-        
-        while(found != 1) {
-            for(long int j=i+1; j<prices.size(); j++) {
-                if(prices[i] >= prices[j]) {
-                    returnVector.push_back(prices[i] - prices[j]);
-                    found = 1;
-                    break;
-                }
-            }
-            if(found == 0) {
-                returnVector.push_back(prices[i]);
-            }
-            break;
+    for(long int i=0; i<gain.size(); i++) {
+        value = value + gain[i];
+        if(value > maxValue){
+            maxValue = value;
         }
+        
     }
-    
-//    for(long int i=0; i<returnVector.size(); i++) {
-//        cout << returnVector[i] << " ";
-//    }
-//    cout << endl;
-    
-    
-    return returnVector;
+    return maxValue;
 }
 
 int main()
 {
-    vector<int> prices = {10, 1, 1, 6};
+    vector<int> gain = {-4, -3, -2, -1, 4, 3, 2};
     
-    finalPrices(prices);
-    
+    cout << largestAltitude(gain) << endl;
     
     return 0;
 }
