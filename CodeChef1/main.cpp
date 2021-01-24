@@ -11,37 +11,45 @@
 
 using namespace std;
 
-int findSpecialInteger(vector<int>& arr) {
-    
-    long int len = arr.size();
-    long int len5 = len * 25;
-    len5 = len5 / 100;
-    
-    int count = 1;
-    
-    if(len > 1) {
-        for(long int i=1; i<arr.size(); i++) {
-            if(arr[i-1] == arr[i]) {
-                count++;
-            }else {
-                count = 1;
-            }
-            
-            if(count > len5) {
-                return arr[i-1];
-            }
-        }
-    }
-    
-    return arr[0];
-}
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
 
+int rangeSumBST(TreeNode* root, int low, int high) {
+    int sum = 0;
+    
+    stack<TreeNode*> s;
+    TreeNode *curr = root;
+    
+    while(curr != NULL || s.empty() == false) {
+        
+        while(curr != NULL) {
+            s.push(curr);
+            curr = curr->left;
+        }
+        
+        curr = s.top();
+        s.pop();
+        
+        if(curr->val > low && curr->val < high) {
+            sum = sum + curr->val;
+        }
+        
+        curr = curr->right;
+    }
+
+    return sum;
+}
 
 int main()
 {
-    vector<int> arr = {1};
     
-    cout << findSpecialInteger(arr) << endl;
+    
     
     return 0;
 }
