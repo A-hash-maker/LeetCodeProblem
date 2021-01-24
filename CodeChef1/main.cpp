@@ -11,35 +11,30 @@
 
 using namespace std;
 
-vector<int> decode(vector<int>& encoded, int first) {
-   
+int countStudents(vector<int>& students, vector<int>& sandwiches) {
     
+    std::vector<int>::iterator it;
     
-    vector<int> decoded;
-    int requiredValue = 0;
-    decoded.push_back(first);
-    for(int i=0; i<encoded.size(); i++){
-        requiredValue = encoded[i]^first;
-        first = requiredValue;
-        decoded.push_back(requiredValue);
+    for(long int i=0; i<sandwiches.size(); i++) {
+        
+        it = std::find(students.begin(), students.end(), sandwiches[i]);
+        
+        if(it != students.end()) {
+            students.erase(students.begin() + (it - students.begin()));
+        }else {
+            break;
+        }
     }
-    
-//    for(long int i=0; i<decoded.size(); i++) {
-//        cout << decoded[i] << " ";
-//    }
-//    cout << endl;
-    
-    
-    return decoded;
+    return int(students.size());
 }
+
 
 int main()
 {
+    vector<int> students = {1, 1, 1, 0, 0, 1};
+    vector<int> sandwiches = {1, 0, 0, 0, 1, 1};
     
-    vector<int> encoded = {6, 2, 7, 3};
-    int first = 4;
-    
-    decode(encoded, first);
+    cout << countStudents(students, sandwiches) << endl;
     
     return 0;
 }
