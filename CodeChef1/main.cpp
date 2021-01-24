@@ -11,25 +11,35 @@
 
 using namespace std;
 
-int largestAltitude(vector<int>& gain) {
-    int value = 0;
-    int maxValue = 0;
+vector<int> decode(vector<int>& encoded, int first) {
+   
     
-    for(long int i=0; i<gain.size(); i++) {
-        value = value + gain[i];
-        if(value > maxValue){
-            maxValue = value;
-        }
-        
+    
+    vector<int> decoded;
+    int requiredValue = 0;
+    decoded.push_back(first);
+    for(int i=0; i<encoded.size(); i++){
+        requiredValue = encoded[i]^first;
+        first = requiredValue;
+        decoded.push_back(requiredValue);
     }
-    return maxValue;
+    
+//    for(long int i=0; i<decoded.size(); i++) {
+//        cout << decoded[i] << " ";
+//    }
+//    cout << endl;
+    
+    
+    return decoded;
 }
 
 int main()
 {
-    vector<int> gain = {-4, -3, -2, -1, 4, 3, 2};
     
-    cout << largestAltitude(gain) << endl;
+    vector<int> encoded = {6, 2, 7, 3};
+    int first = 4;
+    
+    decode(encoded, first);
     
     return 0;
 }
