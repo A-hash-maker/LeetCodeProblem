@@ -11,49 +11,37 @@
 
 using namespace std;
 
-double trimMean(vector<int>& arr) {
-    
-    sort(arr.begin(), arr.end());
+int findSpecialInteger(vector<int>& arr) {
     
     long int len = arr.size();
+    long int len5 = len * 25;
+    len5 = len5 / 100;
     
-    long int len5 = len * 5;
-    len5 = len5 /100;
+    int count = 1;
     
-    //cout << "current value of len5 is " << len5 << endl;
-    
-    for(long int i=0; i<len5; i++) {
-        arr[i] = -1;
-        //cout << "Current Index of i is " << i << endl;
-    }
-    
-    for(long int i=len; i>(arr.size() - len5); i--) {
-        arr[i-1] = -1;
-        //cout << "Current Index of i is " << i << endl;
-    }
-    
-    double mean = 0.00000;
-    double countValue = 0;
-    
-    for(long int i=0; i<arr.size(); i++) {
-        if(arr[i] != -1) {
-            mean = mean + arr[i];
-            countValue++;
+    if(len > 1) {
+        for(long int i=1; i<arr.size(); i++) {
+            if(arr[i-1] == arr[i]) {
+                count++;
+            }else {
+                count = 1;
+            }
+            
+            if(count > len5) {
+                return arr[i-1];
+            }
         }
     }
     
-    mean = mean / countValue;
-    
-    
-    return mean;
+    return arr[0];
 }
 
 
 int main()
 {
-    vector<int> arr = {6,2,7,5,1,2,0,3,10,2,5,0,5,5,0,8,7,6,8,0};
+    vector<int> arr = {1};
     
-    cout << trimMean(arr) << endl;
+    cout << findSpecialInteger(arr) << endl;
     
     return 0;
 }
