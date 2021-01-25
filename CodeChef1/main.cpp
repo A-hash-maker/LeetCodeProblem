@@ -11,45 +11,32 @@
 
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-int rangeSumBST(TreeNode* root, int low, int high) {
-    int sum = 0;
+bool kLengthApart(vector<int>& nums, int k) {
     
-    stack<TreeNode*> s;
-    TreeNode *curr = root;
+    vector<int> index;
     
-    while(curr != NULL || s.empty() == false) {
-        
-        while(curr != NULL) {
-            s.push(curr);
-            curr = curr->left;
+    for(long int i=0; i<nums.size(); i++) {
+        if(nums[i] == 1) {
+            index.push_back(i);
         }
-        
-        curr = s.top();
-        s.pop();
-        
-        if(curr->val > low && curr->val < high) {
-            sum = sum + curr->val;
-        }
-        
-        curr = curr->right;
     }
-
-    return sum;
+    
+    for(long int i=1; i<index.size(); i++) {
+        if(abs(index[i] - index[i-1]) <= k) {
+            //cout << index[i] << " " << index[i-1] << endl;
+            return false;
+        }
+    }
+    return true;
 }
 
 int main()
 {
+    vector<int> nums = {0,1,0,1};
     
+    int k = 1;
     
+    kLengthApart(nums, k) ? cout << "true" << endl : cout << "false" << endl;
     
     return 0;
 }
