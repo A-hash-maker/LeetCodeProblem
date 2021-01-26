@@ -9,34 +9,49 @@
 #include <unordered_map>
 #include <list>
 
+#define pii pair<int, int>
+#define mp make_pair
+
 using namespace std;
 
-bool kLengthApart(vector<int>& nums, int k) {
+vector<int> sortArrayByParity(vector<int>& A) {
     
-    vector<int> index;
+    vector<int> evenNumbers;
+    vector<int> oddNumbers;
     
-    for(long int i=0; i<nums.size(); i++) {
-        if(nums[i] == 1) {
-            index.push_back(i);
+    for(long int i=0; i<A.size(); i++) {
+        if(A[i] % 2 == 0) {
+            evenNumbers.push_back(A[i]);
+        }else {
+            oddNumbers.push_back(A[i]);
         }
     }
     
-    for(long int i=1; i<index.size(); i++) {
-        if(abs(index[i] - index[i-1]) <= k) {
-            //cout << index[i] << " " << index[i-1] << endl;
-            return false;
-        }
+    long int index = 0;
+    
+    for(long int i=0; i<evenNumbers.size(); i++) {
+        A[index] = evenNumbers[i];
+        index++;
     }
-    return true;
+    
+    for(long int i=0; i<oddNumbers.size(); i++) {
+        A[index] = oddNumbers[i];
+        index++;
+    }
+    
+    for(long int i=0; i<A.size(); i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+    
+    return A;
 }
 
 int main()
 {
-    vector<int> nums = {0,1,0,1};
+    vector<int> A = {3, 1, 2, 4};
     
-    int k = 1;
-    
-    kLengthApart(nums, k) ? cout << "true" << endl : cout << "false" << endl;
+    sortArrayByParity(A);
     
     return 0;
 }
