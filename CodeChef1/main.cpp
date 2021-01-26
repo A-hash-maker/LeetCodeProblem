@@ -14,23 +14,13 @@
 
 using namespace std;
 
-string toLowerCase(string str) {
+int search(vector<int>& nums, int target) {
     
-    for(long int i=0; i<str.length(); i++) {
-        char req = tolower(str[i]);
-        str[i] = req;
+    for(long int i=0; i<nums.size(); i++) {
+        if(nums[i] == target) {
+            return i;
+        }
     }
     
-    return str;
-}
-
-int main()
-{
-    
-    string str = "Hello";
-    
-    
-    cout << toLowerCase(str) << endl;
-    
-    return 0;
+    return -1;
 }
