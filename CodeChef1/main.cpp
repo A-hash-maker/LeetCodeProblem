@@ -14,44 +14,23 @@
 
 using namespace std;
 
-vector<int> sortArrayByParity(vector<int>& A) {
+string toLowerCase(string str) {
     
-    vector<int> evenNumbers;
-    vector<int> oddNumbers;
-    
-    for(long int i=0; i<A.size(); i++) {
-        if(A[i] % 2 == 0) {
-            evenNumbers.push_back(A[i]);
-        }else {
-            oddNumbers.push_back(A[i]);
-        }
+    for(long int i=0; i<str.length(); i++) {
+        char req = tolower(str[i]);
+        str[i] = req;
     }
     
-    long int index = 0;
-    
-    for(long int i=0; i<evenNumbers.size(); i++) {
-        A[index] = evenNumbers[i];
-        index++;
-    }
-    
-    for(long int i=0; i<oddNumbers.size(); i++) {
-        A[index] = oddNumbers[i];
-        index++;
-    }
-    
-    for(long int i=0; i<A.size(); i++) {
-        cout << A[i] << " ";
-    }
-    cout << endl;
-    
-    return A;
+    return str;
 }
 
 int main()
 {
-    vector<int> A = {3, 1, 2, 4};
     
-    sortArrayByParity(A);
+    string str = "Hello";
+    
+    
+    cout << toLowerCase(str) << endl;
     
     return 0;
 }
