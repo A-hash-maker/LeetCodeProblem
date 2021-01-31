@@ -9,54 +9,43 @@
 #include <unordered_map>
 #include <list>
 
-#define pii pair<int, int>
-#define mp make_pair
-
 using namespace std;
 
-vector<vector<int>> transpose(vector<vector<int>>& A) {
-    vector<vector<int>> B;
+bool validMountainArray(vector<int>& arr) {
     
-    cout << "Original matrix" << endl;
+    int max = 0;
+    int index = 0;
     
-    long int col = A[0].size();
-    long int row = A.size();
-    
-    for(long int i=0; i<A.size(); i++) {
-        for(long int j=0; j<A[0].size(); j++) {
-            cout << A[i][j] << " ";
+    for(int i=0; i<arr.size(); i++) {
+        if(arr[i] > max) {
+            max = arr[i];
+            index = i;
         }
-        cout << endl;
     }
     
-    
-    
-    for(long int i=0; i<col; i++) {
-        vector<int> returnVect;
-        for(long int j=0; j<row; j++) {
-            returnVect.push_back(A[j][i]);
-        }
-        B.push_back(returnVect);
+    if(index == 0 || index == arr.size() - 1) {
+        return false;
     }
     
-    cout << "Transpose matrix" << endl;
-    
-    for(long int i=0; i<B.size(); i++) {
-        for(long int j=0; j<B[i].size(); j++) {
-            cout << B[i][j] << " ";
+    for(long int i=0; i<index; i++) {
+        if(arr[i] >= arr[i+1]) {
+            return false;
         }
-        cout << endl;
     }
     
-    
-    return B;
+    for(long int i=index; i<arr.size()-1; i++) {
+        if(arr[i] <= arr[i+1]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 int main()
 {
-    vector<vector<int>> A = {{1, 2, 3}, {4, 5, 6}};
+    vector<int> arr = {2, 1};
     
-    transpose(A);
+    validMountainArray(arr) ? cout << "Valid Mountain" << endl: cout << "Invalid Mountain" << endl;
     
     return 0;
 }
