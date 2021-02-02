@@ -11,41 +11,48 @@
 
 using namespace std;
 
-bool validMountainArray(vector<int>& arr) {
+vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+    vector<vector<int>> returnVect;
     
-    int max = 0;
-    int index = 0;
+    sort(arr.begin(), arr.end());
     
-    for(int i=0; i<arr.size(); i++) {
-        if(arr[i] > max) {
-            max = arr[i];
-            index = i;
+    int minDiff = INT_MAX;
+    
+    for(long int i=0; i<arr.size()-1; i++) {
+        if(abs(arr[i+1] - arr[i]) < minDiff) {
+            minDiff = abs(arr[i+1] - arr[i]);
         }
     }
     
-    if(index == 0 || index == arr.size() - 1) {
-        return false;
+    
+    for(long int i=0; i<arr.size()-1; i++) {
+        vector<int> vect;
+        if(abs(arr[i+1] - arr[i]) == minDiff) {
+            vect.push_back(arr[i]);
+            vect.push_back(arr[i+1]);
+        }
+        returnVect.push_back(vect);
     }
     
-    for(long int i=0; i<index; i++) {
-        if(arr[i] >= arr[i+1]) {
-            return false;
+    
+    for(long int i=0; i<returnVect.size(); i++) {
+        for(long int j=0; j<returnVect[i].size(); j++) {
+            cout << returnVect[i][j] << " ";
         }
+        cout << endl;
     }
     
-    for(long int i=index; i<arr.size()-1; i++) {
-        if(arr[i] <= arr[i+1]) {
-            return false;
-        }
-    }
-    return true;
+    
+    
+    
+    return returnVect;
 }
 
 int main()
 {
-    vector<int> arr = {2, 1};
+    vector<int> arr = {3, 8, -10, 23, 19, -4, -14, 27};
     
-    validMountainArray(arr) ? cout << "Valid Mountain" << endl: cout << "Invalid Mountain" << endl;
+    minimumAbsDifference(arr);
     
     return 0;
 }
