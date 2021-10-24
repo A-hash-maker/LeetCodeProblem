@@ -11,48 +11,44 @@
 
 using namespace std;
 
-vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
-    vector<vector<int>> returnVect;
+vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
     
-    sort(arr.begin(), arr.end());
+    sort(nums1.begin(), nums1.end());
+    sort(nums2.begin(), nums2.end());
     
-    int minDiff = INT_MAX;
+    long int counter1 = 0;
+    long int counter2 = 0;
     
-    for(long int i=0; i<arr.size()-1; i++) {
-        if(abs(arr[i+1] - arr[i]) < minDiff) {
-            minDiff = abs(arr[i+1] - arr[i]);
+    vector<int> returnVect;
+    
+    while(counter1 < nums1.size() && counter2 < nums2.size()) {
+        
+        if(nums1[counter1] == nums2[counter2]) {
+            returnVect.push_back(nums1[counter1]);
+            counter1 += 1;
+            counter2 += 1;
+        }else if(nums1[counter1] < nums2[counter2]) {
+            counter1 += 1;
+        }else {
+            counter2 += 1;
         }
     }
-    
-    
-    for(long int i=0; i<arr.size()-1; i++) {
-        vector<int> vect;
-        if(abs(arr[i+1] - arr[i]) == minDiff) {
-            vect.push_back(arr[i]);
-            vect.push_back(arr[i+1]);
-        }
-        returnVect.push_back(vect);
-    }
-    
     
     for(long int i=0; i<returnVect.size(); i++) {
-        for(long int j=0; j<returnVect[i].size(); j++) {
-            cout << returnVect[i][j] << " ";
-        }
-        cout << endl;
+        cout << returnVect[i] << " ";
     }
-    
-    
-    
+    cout << endl;
     
     return returnVect;
+    
 }
 
 int main()
 {
-    vector<int> arr = {3, 8, -10, 23, 19, -4, -14, 27};
+    vector<int> nums1 = {1, 2, 2, 1};
+    vector<int> nums2 = {2,2};
     
-    minimumAbsDifference(arr);
+    intersect(nums1, nums2);
     
     return 0;
 }
