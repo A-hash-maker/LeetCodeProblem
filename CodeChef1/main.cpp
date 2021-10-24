@@ -11,11 +11,13 @@
 
 using namespace std;
 
-int countNodes(TreeNode* root) {
-    
-    if(root == NULL) {
-        return 0;
-    }else {
-        return countNodes(root->left) + countNodes(root->right) + 1;
+
+int findMin(vector<int>& nums) {
+        int minNumber = nums[0];
+        for(long int i=0; i<nums.size(); i++) {
+            if(minNumber > nums[i]) {
+                minNumber = nums[i];
+            }
+        }
+        return minNumber;
     }
-}
