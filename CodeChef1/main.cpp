@@ -11,44 +11,42 @@
 
 using namespace std;
 
-vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
     
-    sort(nums1.begin(), nums1.end());
-    sort(nums2.begin(), nums2.end());
+    long int index = 0;
     
-    long int counter1 = 0;
-    long int counter2 = 0;
-    
-    vector<int> returnVect;
-    
-    while(counter1 < nums1.size() && counter2 < nums2.size()) {
-        
-        if(nums1[counter1] == nums2[counter2]) {
-            returnVect.push_back(nums1[counter1]);
-            counter1 += 1;
-            counter2 += 1;
-        }else if(nums1[counter1] < nums2[counter2]) {
-            counter1 += 1;
-        }else {
-            counter2 += 1;
+    for(long int i=0; i<matrix.size(); i++) {
+        long int last = matrix[i].size();
+        if(matrix[i][0] <= target && matrix[i][last - 1] >= target) {
+            index = i;
+            break;
         }
     }
     
-    for(long int i=0; i<returnVect.size(); i++) {
-        cout << returnVect[i] << " ";
+    for(long int j=0; j<matrix[index].size(); j++) {
+        if(matrix[index][j] == target) {
+            return true;
+        }
     }
-    cout << endl;
     
-    return returnVect;
     
+    return false;
 }
+
 
 int main()
 {
-    vector<int> nums1 = {1, 2, 2, 1};
-    vector<int> nums2 = {2,2};
     
-    intersect(nums1, nums2);
+    vector<vector<int>> matrix = {
+        {1, 3, 5, 7},
+        {10, 11, 16, 20},
+        {23, 30, 34, 60}
+    };
+    
+    int target = 10;
+    
+    cout << "Is Element is present in matrix " << searchMatrix(matrix, target) << endl;
+    
     
     return 0;
 }
