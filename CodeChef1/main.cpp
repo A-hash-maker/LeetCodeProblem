@@ -11,13 +11,34 @@
 
 using namespace std;
 
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
 
-int findMin(vector<int>& nums) {
-        int minNumber = nums[0];
-        for(long int i=0; i<nums.size(); i++) {
-            if(minNumber > nums[i]) {
-                minNumber = nums[i];
-            }
-        }
-        return minNumber;
+TreeNode* invertTree(TreeNode* root) {
+    
+    invertTreeHere(root);
+    
+    return root;
+}
+
+void invertTreeHere(TreeNode* root) {
+    if(root == NULL) {
+        return;
+    }else {
+        
+        struct TreeNode* temp;
+        
+        invertTreeHere(root->left);
+        invertTreeHere(root->right);
+        
+        temp = root->left;
+        root->left = root->right;
+        root->right = temp;
     }
+}
