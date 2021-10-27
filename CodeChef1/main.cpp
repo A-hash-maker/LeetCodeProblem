@@ -11,34 +11,39 @@
 
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-TreeNode* invertTree(TreeNode* root) {
+void sortColors(vector<int>& nums) {
+    int count0 = 0;
+    int count1 = 0;
+    int count2 = 0;
     
-    invertTreeHere(root);
-    
-    return root;
-}
-
-void invertTreeHere(TreeNode* root) {
-    if(root == NULL) {
-        return;
-    }else {
-        
-        struct TreeNode* temp;
-        
-        invertTreeHere(root->left);
-        invertTreeHere(root->right);
-        
-        temp = root->left;
-        root->left = root->right;
-        root->right = temp;
+    for(long int i=0; i<nums.size(); i++) {
+        if(nums[i] == 0) {
+            count0 += 1;
+        }else if(nums[i] == 1) {
+            count1 += 1;
+        }else if(nums[i] == 2) {
+            count2 += 1;
+        }
     }
+    
+    int counter = 0;
+    
+    while(count0 > 0) {
+        nums[counter] = 0;
+        counter += 1;
+        count0 -= 1;
+    }
+    
+    while(count1 > 0) {
+        nums[counter] = 1;
+        count1 -= 1;
+        counter += 1;
+    }
+    
+    while(count2 > 0) {
+        nums[counter] = 2;
+        count2 -= 1;
+        counter += 1;
+    }
+    
 }
