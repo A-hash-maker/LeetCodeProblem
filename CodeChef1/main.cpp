@@ -11,39 +11,47 @@
 
 using namespace std;
 
-void sortColors(vector<int>& nums) {
-    int count0 = 0;
-    int count1 = 0;
-    int count2 = 0;
+vector<int> findDuplicates(vector<int>& nums) {
     
-    for(long int i=0; i<nums.size(); i++) {
-        if(nums[i] == 0) {
-            count0 += 1;
-        }else if(nums[i] == 1) {
-            count1 += 1;
-        }else if(nums[i] == 2) {
-            count2 += 1;
+    vector<int> duplicate;
+    
+    if(nums.size() > 0) {
+        sort(nums.begin(), nums.end());
+        long int counter = 0;
+        
+        for(long int i=1; i<nums.size(); i++) {
+            if(nums[i-1] == nums[i]) {
+                
+                if(duplicate.size() == 0) {
+                    duplicate.push_back(nums[i]);
+                }else {
+                    if(duplicate[counter] != nums[i]) {
+                        duplicate.push_back(nums[i]);
+                        counter += 1;
+                    }
+                }
+                
+                
+            }
         }
     }
     
-    int counter = 0;
+    cout << "Final Array " << endl;
     
-    while(count0 > 0) {
-        nums[counter] = 0;
-        counter += 1;
-        count0 -= 1;
+    for(long int i=0; i<duplicate.size(); i++) {
+        cout << duplicate[i] << " ";
     }
+    cout << endl;
     
-    while(count1 > 0) {
-        nums[counter] = 1;
-        count1 -= 1;
-        counter += 1;
-    }
+    return duplicate;
+}
+
+
+int main()
+{
+    vector<int> nums = {4, 3, 2, 7, 8, 2, 3, 1};
     
-    while(count2 > 0) {
-        nums[counter] = 2;
-        count2 -= 1;
-        counter += 1;
-    }
+    findDuplicates(nums);
     
+    return 0;
 }
