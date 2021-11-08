@@ -11,30 +11,42 @@
 
 using namespace std;
 
-int arrangeCoins(int n) {
+vector<int> singleNumber(vector<int>& nums) {
     
-    long int var = 1;
-    int starCounts = 0;
+    sort(nums.begin(), nums.end());
     
-    while(n > 0) {
-        
-        if((n - var) >= 0) {
-            n -= var;
-            starCounts++;
-            var += 1;
-        }else {
-            break;
+    set<int> s1;
+    vector<int> returnVect;
+    
+    for(long int i=1; i<nums.size(); i++) {
+        if(nums[i-1] == nums[i]) {
+            s1.insert(nums[i]);
         }
     }
     
-    return starCounts;
+    for(long int i=0; i<nums.size(); i++) {
+        auto it = s1.find(nums[i]);
+        if(it == s1.end()) {
+            returnVect.push_back(nums[i]);
+        }
+    }
+    
+    cout << "Final array is" << endl;
+    
+    for(long int i=0; i<returnVect.size(); i++) {
+        cout << returnVect[i] << " ";
+    }
+    cout << endl;
+    
+    
+    return returnVect;
 }
 
 int main()
 {
-    int n = 5;
+    vector<int> nums = {1, 2, 1, 3, 2, 5};
     
-    cout << arrangeCoins(n) << endl;
+    singleNumber(nums);
     
     return 0;
 }
