@@ -11,12 +11,11 @@
 
 using namespace std;
 
-vector<int> singleNumber(vector<int>& nums) {
-    
+int singleNumber(vector<int>& nums) {
+    int number = 0;
     sort(nums.begin(), nums.end());
     
     set<int> s1;
-    vector<int> returnVect;
     
     for(long int i=1; i<nums.size(); i++) {
         if(nums[i-1] == nums[i]) {
@@ -27,26 +26,19 @@ vector<int> singleNumber(vector<int>& nums) {
     for(long int i=0; i<nums.size(); i++) {
         auto it = s1.find(nums[i]);
         if(it == s1.end()) {
-            returnVect.push_back(nums[i]);
+            return nums[i];
         }
     }
     
-    cout << "Final array is" << endl;
     
-    for(long int i=0; i<returnVect.size(); i++) {
-        cout << returnVect[i] << " ";
-    }
-    cout << endl;
-    
-    
-    return returnVect;
+    return number;
 }
 
 int main()
 {
-    vector<int> nums = {1, 2, 1, 3, 2, 5};
+    vector<int> nums = {2, 2, 3, 2};
     
-    singleNumber(nums);
+    cout << singleNumber(nums) << endl;
     
     return 0;
 }
